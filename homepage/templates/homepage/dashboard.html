@@ -1,0 +1,13 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<br>
+<div class="top-bar">
+   <nav class="navbar navbar-light bg-light justify-content-between shadow p-3 mb-5 bg-white rounded" style="width: 85%; margin-left: 7%;">
+     <a class="navbar-brand">Hoşgeldin, {{user}} - <strong> {{team}}</b></strong>
+   </nav>
+ </div>
+    
+{% endblock %}
