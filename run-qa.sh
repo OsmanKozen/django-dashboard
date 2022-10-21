@@ -1,0 +1,1 @@
+python manage.py runserver --insecure --settings=finansaldashboard.settings.qa 0.0.0.0:9082

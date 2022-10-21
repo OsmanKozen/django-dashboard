@@ -1,0 +1,131 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+{% load static %}
+
+<style type="text/css">
+    .table {
+        font-size: 14px;
+    }
+</style>
+
+<br>
+<div class="container justify-content-md-center">
+    <div class="row">
+        <h4><span class="badge badge-pill badge-info">{{subject}}</span></h4>
+        <a href="/weeklyreport/{{team}}/sendmailtome" class="btn btn-success" style="margin-left: 40px;">Send Mail to
+            Me</a>
+    </div>
+    <br><br>
+    <form method="POST" class="post-form" enctype="multipart/form-data" action="/weeklyreport/showold">
+        {% csrf_token %}
+        <div class="row">
+            <h5><span class="badge badge-pill badge-secondary">Eski raporları görmek için hafta sayısını seçiniz:</span></h5>
+            <select style="width: 100px; margin-left: 20px;" type="text" class="form-control form-control-sm" name="weeknum" id="id_weeknum" value="1">
+                {% for s in available_weeknums %}
+                    <option>{{s.entry_date__week}}</option>
+                {% endfor %}
+            </select>
+            <button style="margin-left: 20px;" type="submit" class="btn btn-sm btn-secondary">Göster</button>
+        </div>
+    </form>
+</div>
+<br>
+<div class="container justify-content-md-center">
+    <div class="row">
+        <div class="col">
+            <table border="1px" style="border-width: 0.01em; width: 1110px; height: 100px;">
+                <thead>
+                    <tr>
+                        <td style="vertical-align:middle; text-align: center; background-color: skyblue; width: 50%; "><strong>{{subject}}</strong>
+                        </td>
+                        <td style="background-color:white"> <img src="{% static 'images/weeklyreport/gt-logo.png' %}"
+                                alt="GT logo." height="50px" style="margin-left: 20px;" /> </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container justify-content-md-center">
+    <div class="row">
+        <div class="col">
+            <table border="1" class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td style="width: 10%; vertical-align: top;">
+                            <img src="{% static 'images/weeklyreport/hl.png' %}" alt="HL logo.">
+                            <h5 style="text-align: center;">Highlights</h5>
+                        </td>
+                        <td style="width: 90%">
+                            <ul>
+                                {% for h in highlights %}
+                                <li>{% if h.service %}<strong>{{h.service}}</strong> {% endif %} {{ h.entry|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%; vertical-align: top">
+                            <img src="{% static 'images/weeklyreport/ll.png' %}" alt="LL logo.">
+                            <h5 style="text-align: center;">Lowlights</h5>
+                        </td>
+                        <td style="width: 90%">
+                            <ul>
+                                {% for l in lowlights %}
+                                <li>{% if l.service %}<strong>{{l.service}}</strong> {% endif %} {{ l.entry|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%; vertical-align: top">
+                            <img src="{% static 'images/weeklyreport/wfes.png' %}" alt="WFES logo.">
+                            <h5 style="text-align: center;">Waiting for Executive Support</h5>
+                        </td>
+                        <td style="width: 90%">
+                            <ul>
+                                {% for e in escalations %}
+
+                                <li>{% if e.service %}<strong>{{e.service}}</strong> {% endif %} {{ e.entry|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%; vertical-align: top">
+                            <img src="{% static 'images/weeklyreport/info.png' %}" alt="INFO logo.">
+                            <h5 style="text-align: center;">Information</h5>
+                        </td>
+                        <td style="width: 90%">
+                            <ul>
+                                {% for i in infos %}
+
+                                <li>{% if i.service %}<strong>{{i.service}}</strong> {% endif %} {{ i.entry|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%; vertical-align: top">
+                            <img src="{% static 'images/weeklyreport/progress.png' %}" alt="Progress logo.">
+                            <h5 style="text-align: center;">Progress</h5>
+                        <td style="width: 90%">
+                            <ul>
+                                {% for p in progress %}
+                                <li>{% if p.service %}<strong>{{p.service}}</strong> {% endif %} {{ p.entry|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+{% endblock %}
