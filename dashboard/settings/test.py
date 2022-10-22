@@ -9,11 +9,11 @@ ALLOWED_HOSTS = ["*"]
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': config('MSSQL_TGARSQLKORLSN05_NAME'),
-        'USER': config('MSSQL_TGARSQLKORLSN05_USERNAME'),
-        'PASSWORD': config('MSSQL_TGARSQLKORLSN05_PASSWORD'),
-        'HOST': config('MSSQL_TGARSQLKORLSN05_HOST'),
-        'PORT': config('MSSQL_TGARSQLKORLSN05_PORT'),
+        'NAME': config('MSSQL_NAME'),
+        'USER': config('MSSQL_USERNAME'),
+        'PASSWORD': config('MSSQL_PASSWORD'),
+        'HOST': config('MSSQL_HOST'),
+        'PORT': config('MSSQL_PORT'),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },

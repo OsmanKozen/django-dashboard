@@ -1,1 +1,1 @@
-#
+Django Dashboard page.

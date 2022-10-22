@@ -1,1 +1,1 @@
-python manage.py runserver --insecure --settings=finansaldashboard.settings.dev 0.0.0.0:9080
+python manage.py runserver --insecure --settings=dashboard.settings.dev 0.0.0.0:9080
