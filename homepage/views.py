@@ -7,8 +7,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from weeklyreport.models import Users, Services
 
-# Create your views here.
-
 
 def login_view(request):
     if request.method == 'POST':
