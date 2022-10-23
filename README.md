@@ -1,4 +1,4 @@
-## Installation
+## Installation and Run
 
 ```cd 'your_project_folder'
 python3 -m venv django_dashboard
