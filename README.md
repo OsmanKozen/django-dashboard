@@ -9,4 +9,4 @@ pip3 install -r ../requirements.txt
 cd ..
 source django_dashboard/bin/activate
 
-python manage.py runserver```
+python manage.py runserver
