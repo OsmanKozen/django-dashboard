@@ -24,10 +24,13 @@ def login_view(request):
 
 @login_required()
 def dashboard_view(request):
-    team = Users.objects.filter(username=request.user).values_list(
-        'teamname', flat=True)[0]
-    services = Services.objects.filter(teamname=team).order_by('servicename')
-
+    try:    
+        team = Users.objects.filter(username=request.user).values_list(
+            'teamname', flat=True)[0]
+        services = Services.objects.filter(teamname=team).order_by('servicename')
+    except IndexError:
+        return render(request, "homepage/unauthorized_user.html")
+        
     content = {
         "user": request.user,
         "team": team,
