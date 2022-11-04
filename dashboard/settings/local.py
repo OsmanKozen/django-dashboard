@@ -5,7 +5,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Fetch Service User's password from CyberArk
 
-# Finansal Rezilyans Dashboard CyberArk informations
+# Dashboard CyberArk informations
 cyberark_appid = "APP_ID"
 cyberark_safename = "APP_SAFENAME"
 
