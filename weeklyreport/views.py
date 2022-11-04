@@ -85,7 +85,7 @@ def add(request, team):
             return redirect(redirection_url)
         else:
             form = ReportForm()
-            cur_user = request.user.username.upper()
+            cur_user = request.user.username
             services = Services.objects.filter(
                 teamname=team).order_by('servicename')
             users = Users.objects.filter(teamname=team)
@@ -107,7 +107,7 @@ def add(request, team):
 
     if request.method == "GET":
         form = ReportForm()
-        cur_user = request.user.username.upper()
+        cur_user = request.user.username
         services = Services.objects.filter(
             teamname=team).order_by('servicename')
         users = Users.objects.filter(teamname=team)
