@@ -5,7 +5,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Fetch Service User's password from CyberArk
 
-# Finansal Rezilyans Dashboard CyberArk informations
+# Dashboard CyberArk informations
 cyberark_appid = "APP_ID"
 cyberark_safename = "APP_SAFENAME"
 
@@ -32,11 +32,11 @@ cyberark_mssql_password = cyberark_mssql_response['Content']
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': config('MSSQL_TGARSQLKORLSN05_NAME'),
-        'USER': config('MSSQL_TGARSQLKORLSN05_USERNAME'),
+        'NAME': config('MSSQL_TEST_NAME'),
+        'USER': config('MSSQL_TEST_USERNAME'),
         'PASSWORD': cyberark_mssql_password,
-        'HOST': config('MSSQL_TGARSQLKORLSN05_HOST'),
-        'PORT': config('MSSQL_TGARSQLKORLSN05_PORT'),
+        'HOST': config('MSSQL_TEST_HOST'),
+        'PORT': config('MSSQL_TEST_PORT'),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
