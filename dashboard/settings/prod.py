@@ -5,7 +5,7 @@ ALLOWED_HOSTS = ["*.garanti.com.tr"]
 
 # Fetch Service User's password from CyberArk
 
-# Finansal Rezilyans Dashboard CyberArk informations
+# Dashboard CyberArk informations
 cyberark_appid = "APP_ID"
 cyberark_safename = "APP_SAFENAME"
 
@@ -32,11 +32,11 @@ cyberark_mssql_password = cyberark_mssql_response['Content']
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': config('MSSQL_PGARSQLKORLSN05_NAME'),
-        'USER': config('MSSQL_PGARSQLKORLSN05_USERNAME'),
+        'NAME': config('MSSQL_PROD_NAME'),
+        'USER': config('MSSQL_PROD_USERNAME'),
         'PASSWORD': cyberark_mssql_password,
-        'HOST': config('MSSQL_PGARSQLKORLSN05_HOST'),
-        'PORT': config('MSSQL_PGARSQLKORLSN05_PORT'),
+        'HOST': config('MSSQL_PROD_HOST'),
+        'PORT': config('MSSQL_PROD_PORT'),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
