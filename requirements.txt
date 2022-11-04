@@ -7,6 +7,7 @@ Django==3.2.15
 django-crispy-forms==1.14.0
 django-import-export==2.8.0
 django-multiselectfield==0.1.12
+django-python3-ldap==0.15.3
 et-xmlfile==1.1.0
 h5py==3.7.0
 html5lib==1.1
