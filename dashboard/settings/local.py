@@ -6,16 +6,17 @@ ALLOWED_HOSTS = ["*"]
 # Fetch Service User's password from CyberArk
 
 # Dashboard CyberArk informations
-cyberark_appid = "APP_ID"
-cyberark_safename = "APP_SAFENAME"
+cyberark_url = config('TEST_CYBERARK_URL')
+cyberark_appid = config('TEST_CYBERARK_APPID')
+cyberark_safename = config('TEST_CYBERARK_SAFENAME')
 
 # CyberArk Object names
-cyberark_ldap_object = "APP_LDAP_OBJECT"
-cyberark_mssql_object = "APP_MSSQL_OBJECT"
+cyberark_ldap_object = config('TEST_CYBERARK_LDAP_OBJECT')
+cyberark_mssql_object = config('TEST_CYBERARK_MSSQL_OBJECT')
 
 # CyberArk URL's
-cyberark_ldap_url = f"http://1.1.1.1/AIMWebService/api/Accounts?AppID={cyberark_appid}&Query=Safe={cyberark_safename};Object={cyberark_ldap_object}"
-cyberark_mssql_url = f"http://1.1.1.1/AIMWebService/api/Accounts?AppID={cyberark_appid}&Query=Safe={cyberark_safename};Object={cyberark_mssql_object}"
+cyberark_ldap_url = f"http://{cyberark_url}/AIMWebService/api/Accounts?AppID={cyberark_appid}&Query=Safe={cyberark_safename};Object={cyberark_ldap_object}"
+cyberark_mssql_url = f"http://{cyberark_url}/AIMWebService/api/Accounts?AppID={cyberark_appid}&Query=Safe={cyberark_safename};Object={cyberark_mssql_object}"
 
 # Send request to URL's
 cyberark_request_ldap = requests.get(cyberark_ldap_url)
@@ -43,7 +44,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # The URL of the LDAP server(s).  List multiple servers for high availability ServerPool connection.
-LDAP_AUTH_URL = ["ldaps://abc.com.tr:636"]
+LDAP_AUTH_URL = [config('PROD_LDAP_AUTH_URL')]
 
 # Initiate TLS on connection.
 LDAP_AUTH_USE_TLS = False
@@ -53,7 +54,7 @@ import ssl
 LDAP_AUTH_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "OU=ABC Teknoloji,OU=All Users,DC=fw,DC=company,DC=com,DC=tr"
+LDAP_AUTH_SEARCH_BASE = "OU=ABC Company,OU=All Users,DC=fw,DC=company,DC=com,DC=tr"
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "user"
@@ -95,14 +96,14 @@ LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_active_di
 # LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_active_directory_principal"
 
 # Sets the login domain for Active Directory users.
-LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = "COMPANY"
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = config('PROD_LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN')
 
 # The LDAP username and password of a user for querying the LDAP database for user
 # details. If None, then the authenticated user will be used for querying, and
 # the `ldap_sync_users`, `ldap_clean_users` commands will perform an anonymous query.
-LDAP_AUTH_CONNECTION_USERNAME = "APP_LDAP_USER"
+LDAP_AUTH_CONNECTION_USERNAME = config('PROD_LDAP_AUTH_CONNECTION_USERNAME')
 LDAP_AUTH_CONNECTION_PASSWORD = cyberark_ldap_password
 
 # Set connection/receive timeouts (in seconds) on the underlying `ldap3` library.
-LDAP_AUTH_CONNECT_TIMEOUT = 10
-LDAP_AUTH_RECEIVE_TIMEOUT = 10
+LDAP_AUTH_CONNECT_TIMEOUT = config('PROD_LDAP_AUTH_CONNECT_TIMEOUT', cast=int)
+LDAP_AUTH_RECEIVE_TIMEOUT = config('PROD_LDAP_AUTH_RECEIVE_TIMEOUT', cast=int)
