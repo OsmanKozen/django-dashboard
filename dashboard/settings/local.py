@@ -54,7 +54,7 @@ import ssl
 LDAP_AUTH_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "OU=ABC Company,OU=All Users,DC=fw,DC=company,DC=com,DC=tr"
+LDAP_AUTH_SEARCH_BASE  = [config('PROD_LDAP_AUTH_SEARCH_BASE')]
 
 # The LDAP class that represents a user.
 LDAP_AUTH_OBJECT_CLASS = "user"
