@@ -1,0 +1,30 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        {% if form.errors %}
+        <br>
+        <div style="color:#fff; background-color:#f44336; padding: 8px;">
+            <h3>Hata!</h3>
+            <p>Lütfen eksik bilgileri doldurun..</p>
+        </div> 
+        {% endif %}
+        <hr>
+        <h3>Servis Kaydı Ekle</h3>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-danger">Ekle</button>
+        </form>
+    </div>
+</div>
+
+<br>
+<br>
+
+{% endblock %}

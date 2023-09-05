@@ -1,0 +1,194 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+<style>
+  table {
+    font-size: 11px !important;
+    text-align: center;
+    word-wrap: break-word;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1%;
+  }
+
+  table th {
+    text-align: center;
+    word-wrap: break-word;
+    width: 1%;
+  }
+
+  table tr.red {
+    color: white;
+    background-color: rgb(139, 0, 0);
+    text-align: center;
+
+  }
+
+  table tr.green {
+    color: white;
+    background-color: rgb(0, 110, 0);
+  }
+
+  table.blueTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 3px solid #1B6FA4;
+    background-color: #ffffff;
+    width: 95%;
+    text-align: center;
+    border-collapse: collapse;
+  }
+
+  table.blueTable td,
+  table.blueTable th {
+    border: 1px solid #AAAAAA;
+    padding: 3px 2px;
+  }
+
+  table.blueTable tbody td {
+    font-size: 11px;
+  }
+
+  table.blueTable tr:nth-child(even) {
+    background: #e6e3ff;
+  }
+
+  table.blueTable thead {
+    background: #0C5AC9;
+    background: -moz-linear-gradient(top, #4983d6 0%, #246ace 66%, #0C5AC9 100%);
+    background: -webkit-linear-gradient(top, #4983d6 0%, #246ace 66%, #0C5AC9 100%);
+    background: linear-gradient(to bottom, #4983d6 0%, #246ace 66%, #0C5AC9 100%);
+    border-bottom: 2px solid #444444;
+  }
+
+  table.blueTable thead th {
+    font-size: 11px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border-left: 2px solid #D0E4F5;
+  }
+
+  table.blueTable thead th:first-child {
+    border-left: none;
+  }
+
+  table.blueTable tfoot td {
+    font-size: 11px;
+  }
+
+  table.blueTable tfoot .links {
+    text-align: right;
+  }
+
+  table.blueTable tfoot .links a {
+    display: inline-block;
+    background: #1C6EA4;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+</style>
+
+<br>
+<div>
+  <input style="font-size: 17px; margin-left: 80px;" type="text" id="myInput" placeholder="Servislerde Ara">
+  <a href="{% url 'export-excel' %}" class="btn btn-info"
+    style="margin-left: 20px; width: 130px; background-color: #4CAF50;">Export Excel</a>
+</div>
+<br>
+<div>
+  {% if services %}
+  <table class="blueTable" id="blueTable">
+    <thead>
+      <tr>
+        <th scope="col">Servis ID</th>
+        <th scope="col">Servis adı</th>
+        <th scope="col">Ekip adı</th>
+        <th scope="col">SRE</th>
+        <th scope="col">SRE Yedek</th>
+        <th scope="col">Vendor</th>
+        <th scope="col">Sunucu lokasyonu</th>
+        <th scope="col">Prod dışı ortam bilgileri</th>
+        <th scope="col">Sunucu tipi</th>
+        <th scope="col">İşletim sistemi tipi</th>
+        <th scope="col">Uygulama sunucu sayısı</th>
+        <th scope="col">Sunucu bilgileri</th>
+        <th scope="col">Veritabanı tipi</th>
+        <th scope="col">Veritabanı bağlantı bilgisi</th>
+        <th scope="col">Monitor edildiği uygulamalar</th>
+        <th scope="col">Log entegrasyonu</th>
+        <th scope="col">Log index</th>
+        <th scope="col">Support detayları</th>
+        <th scope="col">Entegre olduğu uygulamalar/servisler</th>
+        <th scope="col">Diğerleri</th>
+        <th scope="col">SOX kritik mi?</th>
+        <th scope="col">Müşteri kritik veri barındırır mı?</th>
+        <th scope="col">ODM Platformu var mı?</th>
+        <th scope="col">Kendi içinde yedeklilik (HA) var mı?</th>
+        <th scope="col">Dış kurum entegrasyonu var mı?</th>
+        <th scope="col">Servis kesintisi iç/dış müşteriyi etkiler mi?</th>
+        <th scope="col">Uygulama sunucularının backup'ı var mı?</th>
+        <th scope="col" colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      {% for service in services%}
+      <tr>
+        <th scope="row">{{ service.serviceid }}</th>
+        <td>{{ service.servicename }}</td>
+        <td>{{ service.teamname }}</td>
+        <td>{{ service.sre }}</td>
+        <td>{{ service.srebackup }}</td>
+        <td>{{ service.vendor }}</td>
+        <td>{{ service.serverlocation }}</td>
+        <td>{{ service.nonprodenvtypes }}</td>
+        <td>{{ service.servertype }}</td>
+        <td>{{ service.ostype|truncatewords:6 }}</td>
+        <td>{{ service.appservercount }}</td>
+        <td>{{ service.serverhostnames|truncatewords:6 }}</td>
+        <td>{{ service.dbtype }}</td>
+        <td>{{ service.dbconnstring|truncatewords:6 }}</td>
+        <td>{{ service.monitoringapps }}</td>
+        <td>{{ service.logintegration }}</td>
+        <td>{{ service.logindex|truncatewords:6 }}</td>
+        <td>{{ service.supportdetail }}</td>
+        <td>{{ service.integratedservices|truncatewords:6 }}</td>
+        <td>{{ service.other|truncatewords:6 }}</td>
+        <td>{{ service.sox }}</td>
+        <td>{{ service.soxcriticdata }}</td>
+        <td>{{ service.odmplatform }}</td>
+        <td>{{ service.highavailability }}</td>
+        <td>{{ service.regulatoryintegration }}</td>
+        <td>{{ service.customereffect }}</td>
+        <td>{{ service.backup }}</td>
+        <td><a href="/services/{{ team }}/update/{{ service.serviceid }}" class="btn btn-info"
+            style="width: 50px; font-size: 12px;"><span class="glyphicon glyphicon-pencil">Edit</span></a></td>
+        <td><a href="/services/{{ team }}/delete/{{ service.serviceid }}" class="btn btn-danger"
+            style="width: 70px; font-size: 12px;" onclick="return confirm('Bu servisi silmek istediginize emin misiniz?')">Delete</a> </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-danger">Henüz veri eklenmemiş</div>
+{% endif %}
+
+<br>
+
+<a href="/services/add" class="btn btn-primary" style="margin-left: 46.5%; text-align: center;">Yeni Servis Ekle</a>
+
+<br><br><br>
+<script>
+
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+</script>
+
+{% endblock %}
