@@ -1,0 +1,134 @@
+{% extends "weeklyreport/mail_base.html" %}
+{% block content %}
+
+<style type="text/css">
+    ul,
+    li,
+    p {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+</style>
+
+<table border="1" style="border-width: 0.01em; width: 1324px;">
+    <tr>
+        <td
+            style="vertical-align:middle; text-align: center; background-color: skyblue; width: 50%; font-size: 16px; margin-left: 18px;">
+            <strong>{{ subject }}</strong>
+        </td>
+        <td style="background-color:white; vertical-align: top; width: 50%; font-size: 16px; margin-left: 18px;">
+            <img src="cid:gt-logo-small.png" alt="GT logo.">
+        </td>
+    </tr>
+</table>
+<table border="1">
+    <tbody>
+        <tr>
+            <td style="width: 110px;">
+                <img src="cid:hl.png" alt="HL logo.">
+                <h5 style="text-align: center; font-size: 14px;">Highlights</h5>
+            </td>
+            <td
+                style="width: 1200px; font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif; font-size: 15px; line-height: 16px; display: block;">
+                <br>
+                <ul style="display: block; width: 80%; margin-right: 20px;">
+                    {% for h in highlights %}
+                    <li>{% if h.service %}<strong>{{ h.service }}</strong> {% endif %} {{ h.entry|safe }}
+                    {% if h.document %}
+                    <img src="cid:{{ h.document }}" alt="HL image.">
+                    {% endif%}
+                    </li>
+                    <br>
+                    {% endfor %}
+                </ul>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 110px;">
+                <img src="cid:ll.png" alt="LL logo.">
+                <h5 style="text-align: center; font-size: 14px;">Lowlights</h5>
+            </td>
+            <td
+                style="width: 1200px; font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif; font-size: 15px; line-height: 16px; display: block;">
+                <br>
+                <ul style="display: block; width: 80%; margin-right: 20px;">
+                    {% for l in lowlights %}
+                    <li>{% if l.service %}<strong>{{ l.service }}</strong> {% endif %} {{ l.entry|safe }}
+                    {% if l.document %}
+                    <img src="cid:{{ l.document }}" alt="LL image.">
+                    {% endif%}                    
+                    </li>
+                    <br>
+                    {% endfor %}
+                </ul>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 110px;">
+                <img src="cid:wfes.png" alt="WFES logo.">
+                <h5 style="text-align: center; font-size: 14px;">Waiting for Executive Support</h5>
+            </td>
+            <td
+                style="width: 1200px; font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif; font-size: 15px; line-height: 16px; display: block;">
+                <br>
+                <ul style="display: block; width: 80%; margin-right: 20px;">
+                    {% for e in escalations %}
+                    <li>{% if e.service %}<strong>{{ e.service }}</strong> {% endif %} {{ e.entry|safe }}
+                    {% if e.document %}
+                    <img src="cid:{{ e.document }}" alt="WFES image.">
+                    {% endif%}                    
+                    </li>
+                    <br>
+                    {% endfor %}
+                </ul>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 110px;">
+                <img src="cid:info.png" alt="INFO logo.">
+                <h5 style="text-align: center; font-size: 14px;">Information</h5>
+            </td>
+            <td
+                style="width: 1200px; font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif; font-size: 15px; line-height: 16px; display: block;">
+                <br>
+                <ul style="display: block; width: 80%; margin-right: 20px;">
+                    {% for i in infos %}
+                    <li>{% if i.service %}<strong>{{ i.service }}</strong> {% endif %} {{ i.entry|safe }}
+                    {% if i.document %}
+                    <img src="cid:{{ i.document }}" alt="INFO image.">
+                    {% endif%}                    
+                    </li>
+                    <br>
+                    {% endfor %}
+                </ul>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 110px;">
+                <img class="wr-report-cat-icon" src="cid:progress.png" alt="Progress logo.">
+                <h5 style="text-align: center; font-size: 14px;">Progress</h5>
+            </td>
+            <td
+                style="width: 1200px; font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif; font-size: 15px; line-height: 16px; display: block;">
+                <br>
+                <ul style="display: block; width: 80%; margin-right: 20px;">
+                    {% for p in progress %}
+                    <li>{% if p.service %}<strong>{{p.service}}</strong> {% endif %} {{ p.entry|safe }}
+                    {% if p.document %}
+                    <img src="cid:{{ p.document }}" alt="Progress image.">
+                    {% endif%}                    
+                    </li>
+                    <br>
+                    {% endfor %}
+                </ul>
+                <br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

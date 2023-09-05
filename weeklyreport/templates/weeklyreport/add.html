@@ -1,0 +1,108 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+<br>
+<div class="container">
+    {% include "weeklyreport/error-handler/report_form_error.html" %}
+    <hr>
+    <form method="POST" class="post-form" enctype="multipart/form-data" name="add-report"
+        action="/weeklyreport/{{ team }}/add">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-5">
+                <h3>Lütfen Rapor Detaylarını Girin</h3>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Type:</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="type" id="id_type" value="{{ reports.type }}">
+                    <option>Highlight</option>
+                    <option>Lowlight</option>
+                    <option>Waiting for Executive Support</option>
+                    <option>Info</option>
+                    <option>Progress</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Priority:</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="priority" id="id_priority" value="{{ reports.priority }}">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option selected="selected">4</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Service:</label>
+            <div class="col-sm-8">
+                <select type="text" class="form-control" name="service" id="id_service" value="{{ reports.service }}">
+                    {% for s in services %}
+                    <option>{{ s.servicename }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">User:</label>
+            <div class="col-sm-8">
+                <select type="text" class="form-control" name="entry_owner" id="id_entry_owner"
+                    value="{{ reports.entry_owner }}">
+                    <option selected="selected">{{ cur_user }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Entry:</label>
+            <div class="alert alert-danger" role="alert" style="margin-left: 16px">
+                <strong>Lütfen bu alana Image yapıştırmayın!</strong>
+            </div>
+
+            <div class="col-sm-10">
+                <textarea id="mytextarea" name="entry" placeholder="Haftalık rapor maddenizi yazınız..."></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="id_document" class="col-sm-2 col-form-label">Image:</label>
+            <div class="col-sm-10">
+                <input type="file" name="document" id="id_document" enctype="multipart/form-data">
+                <small id="hint_id_document" class="form-text text-muted">*Image isimlerinde Türkçe karakter ve özel karakter olmamalı</small>
+                <small id="hint_id_document" class="form-text text-muted">*Desteklenen uzantılar jpeg, jpg ve png</small>
+                <small id="hint_id_document" class="form-text text-muted">*Max Image boyutu 5MB</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Team Information:</label>
+            <div class="col-sm-12">
+                <input style="width: 300px;" readonly="true" name="team" id="id_team" value="{{ team }}">
+                <input style="width: 350px;" readonly="true" name="unit" id="id_unit" value="{{ unit }}">
+                <input style="width: 150px;" readonly="true" name="manager" id="id_manager" value="{{ manager }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+                <a href="/weeklyreport/show" class="btn btn-success">Haftalık Raporu Göster</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        height: 300,
+        menubar: false,
+        plugins: 'preview searchreplace save directionality code visualblocks visualchars fullscreen image media template codesample table charmap pagebreak nonbreaking anchor advlist lists wordcount',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+    });
+
+</script>
+
+
+{% endblock %}

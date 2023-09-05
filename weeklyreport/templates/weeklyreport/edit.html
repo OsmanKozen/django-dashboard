@@ -1,0 +1,112 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+<br>
+<div class="container">
+    {% include "weeklyreport/error-handler/report_form_error.html" %}
+    <hr>
+    <form method="POST" class="post-form" enctype="multipart/form-data"
+        action="/weeklyreport/{{ team }}/update/{{ reports.id }}">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-6">
+                <h3>Lütfen Raporu Güncelleyin</h3>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Type:</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="type" id="id_type" value="{{ reports.type }}">
+                    <option {% if reports.type == "Highlight" %} selected="selected" {% endif %}>Highlight</option>
+                    <option {% if reports.type == "Lowlight" %} selected="selected" {% endif %}>Lowlight</option>
+                    <option {% if reports.type == "Waiting for Executive Support" %} selected="selected" {% endif %}>
+                        Waiting for Executive Support</option>
+                    <option {% if reports.type == "Info" %} selected="selected" {% endif %}>Info</option>
+                    <option {% if reports.type == "Progress" %} selected="selected" {% endif %}>Progress</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Priority:</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="priority" id="id_priority" value="{{ reports.type }}">
+                    <option {% if reports.priority == 1 %} selected="selected" {% endif %}>1</option>
+                    <option {% if reports.priority == 2 %} selected="selected" {% endif %}>2</option>
+                    <option {% if reports.priority == 3 %} selected="selected" {% endif %}>3</option>
+                    <option {% if reports.priority == 4 %} selected="selected" {% endif %}>4</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="id_service" class="col-sm-2 col-form-label">Service:</label>
+            <div class="col-sm-8">
+                <select type="text" class="form-control" name="service" id="id_service" value="{{ reports.service }}">
+                    {% for s in services %}
+                    <option {% if s.servicename == reports.service %} selected="selected" {% endif %}>{{ s.servicename }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">User:</label>
+            <div class="col-sm-8">
+                <select type="text" class="form-control" name="entry_owner" id="id_entry_owner"
+                    value="{{ reports.entry_owner }}">
+                    {% for u in users %}
+                    <option {% if u.username == reports.entry_owner %} selected="selected" {% endif %}>{{ u.username }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Entry:</label>
+            <div class="alert alert-danger" role="alert" style="margin-left: 16px">
+                <strong>Lütfen bu alana Image yapıştırmayın!</strong>
+            </div>
+            <div class="col-sm-10">
+                <textarea id="mytextarea" name="entry" id="id_entry" placeholder="Haftalık rapor maddenizi yazınız...">{{ reports.entry|safe }} </textarea>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="id_document" class="col-sm-2 col-form-label">Image:</label>
+            <div class="col-sm-10">
+                <input type="file" name="document" id="id_document" enctype="multipart/form-data" value="{{ reports.document }}"><br/>
+                {% if reports.document %}<img width="15%" src="/media/{{ reports.document }}" alt="Report image."><br/>{% endif %}
+                <small id="hint_id_document" class="form-text text-muted">*Image isimlerinde Türkçe karakter ve özel karakter olmamalı</small>
+                <small id="hint_id_document" class="form-text text-muted">*Desteklenen uzantılar jpeg, jpg ve png</small>
+                <small id="hint_id_document" class="form-text text-muted">*Max Image boyutu 5MB</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Team Information:</label>
+            <div class="col-sm-12">
+                <input style="width: 300px;" readonly="true" name="team" id="id_team" value="{{ team }}">
+                <input style="width: 350px;" readonly="true" name="unit" id="id_unit" value="{{ unit }}">
+                <input style="width: 150px;" readonly="true" name="manager" id="id_manager" value="{{ manager }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        height: 300,
+        menubar: false,
+        plugins: 'preview searchreplace save directionality code visualblocks visualchars fullscreen image media template codesample table charmap pagebreak nonbreaking anchor advlist lists wordcount',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+    });
+
+</script>
+
+
+{% endblock %}

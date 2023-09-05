@@ -1,0 +1,154 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+{% load static %}
+
+<br>
+<style type="text/css">
+  .highlighted {
+    background: seagreen;
+    color: azure;
+    font-size: 18px;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+</style>
+
+<div class="container justify-content-md-center">
+  <div class="row">
+    <h4><span class="badge badge-pill badge-secondary">Haftalık Rapor uygulamasında "{{keyword}}" araması ile ilgili
+        sonuçlar:</span></h4>
+  </div>
+</div>
+
+<div class="container justify-content-md-center">
+  <div class="row">
+    <div class="col">
+      <table border="1" class="table table-bordered">
+        <tbody>
+          <tr>
+            <td style="width: 10%; vertical-align: top;">
+              <img src="{% static 'images/weeklyreport/hl.png' %}" alt="HL logo.">
+              <h5 style="text-align: center;">Highlights</h5>
+            </td>
+            <td style="width: 90%">
+              <ul>
+                {% for h in highlights %}
+                <li>{% if h.service %}<strong>{{ h.service }}</strong> {% endif %} {{ h.entry|safe }}</li>
+                {% if h.document %}
+                <img width="75%" src="/media/{{ h.document }}" alt="HL image.">
+                {% endif %}                 
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 10%; vertical-align: top">
+              <img src="{% static 'images/weeklyreport/ll.png' %}" alt="LL logo.">
+              <h5 style="text-align: center;">Lowlights</h5>
+            </td>
+            <td style="width: 90%">
+              <ul>
+                {% for l in lowlights %}
+                <li>{% if l.service %}<strong>{{ l.service }}</strong> {% endif %} {{ l.entry|safe }}</li>
+                {% if l.document %}
+                <img width="75%" src="/media/{{ l.document }}"- alt="LL image.">
+                {% endif %}                 
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 10%; vertical-align: top">
+              <img src="{% static 'images/weeklyreport/wfes.png' %}" alt="WFES logo.">
+              <h5 style="text-align: center;">Waiting for Executive Support</h5>
+            </td>
+            <td style="width: 90%">
+              <ul>
+                {% for e in escalations %}
+                <li>{% if e.service %}<strong>{{ e.service }}</strong> {% endif %} {{ e.entry|safe }}</li>
+                {% if e.document %}
+                <img width="75%" src="/media/{{ e.document }}" alt="WFES image.">
+                {% endif %}                 
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 10%; vertical-align: top">
+              <img src="{% static 'images/weeklyreport/info.png' %}" alt="INFO logo.">
+              <h5 style="text-align: center;">Information</h5>
+            </td>
+            <td style="width: 90%">
+              <ul>
+                {% for i in infos %}
+                <li>{% if i.service %}<strong>{{ i.service }}</strong> {% endif %} {{ i.entry|safe }}</li>
+                {% if i.document %}
+                <img width="75%" src="/media/{{ i.document }}" alt="INFO image.">
+                {% endif %}                 
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 10%; vertical-align: top">
+              <img src="{% static 'images/weeklyreport/progress.png' %}" alt="Progress logo.">
+              <h5 style="text-align: center;">Progress</h5>
+            <td style="width: 90%">
+              <ul>
+                {% for p in progress %}
+                <li>{% if p.service %}<strong>{{ p.service }}</strong> {% endif %} {{ p.entry|safe }}</li>
+                {% if p.document %}
+                <img width="75%" src="/media/{{ p.document }}" alt="Progress image.">
+                {% endif %}                 
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="form-group row">
+  <div class="col-sm-10" style="margin-left: 44%;">
+    <a href="/weeklyreport/{{ team }}/add" class="btn btn-primary">Yeni Kayıt Ekle</a>
+    <a href="/weeklyreport/show" class="btn btn-success">Haftalık Raporu Göster</a>
+  </div>
+</div>
+
+<br>
+<br>
+
+<script type="text/javascript">
+  highlightWord(document.body, '{{keyword}}');
+
+  function highlightWord(root, word) {
+    textNodesUnder(root).forEach(highlightWords);
+
+    function textNodesUnder(root) {
+      var walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false),
+        text = [], node;
+      while (node = walk.nextNode()) text.push(node);
+      return text;
+    }
+
+    function highlightWords(n) {
+      for (var i; (i = n.nodeValue.indexOf(word, i)) > -1; n = after) {
+        var after = n.splitText(i + word.length);
+        var highlighted = n.splitText(i);
+        var span = document.createElement('span');
+        span.className = 'highlighted';
+        span.appendChild(highlighted);
+        after.parentNode.insertBefore(span, after);
+      }
+    }
+  }
+
+</script>
+
+{% endblock %}
