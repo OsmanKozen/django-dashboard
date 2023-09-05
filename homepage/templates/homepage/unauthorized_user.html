@@ -1,0 +1,15 @@
+{% extends "homepage/base.html" %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+<br>
+<div style="margin-left: 50px;">
+    <h3><span class="badge badge-success">Hoşgeldin {{ request.user.username }}!</span>
+    </h3>
+    <h5><span class="badge badge-warning">Herhangi bir ekibin üyesi olmadığınız için verileri görüntüleyemezsiniz,
+            menüler arasında gezerken hata alacaksınız. Sadece 1 ekibe üye olacak şekilde yetki tanımlarınızın
+            yapıldığından emin olun.</span></h5>
+    <h4><span class="badge badge-info">Lütfen GT-Finansal Sirketler Rezilyans Yonetimi ekibi ile iletişime geçin.</span>
+    </h4>
+</div>
+{% endblock %}
